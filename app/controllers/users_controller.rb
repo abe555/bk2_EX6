@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @user = current_user
     @book = Book.new
   end
 
@@ -23,6 +24,11 @@ class UsersController < ApplicationController
     else
       render "show"
     end
+  end
+
+  def destroy
+    flash[:notice] = "Signed out successfully"
+    redirect_to root_path
   end
 
   private
