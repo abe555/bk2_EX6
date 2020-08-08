@@ -1,6 +1,5 @@
 class Favorite < ApplicationRecord
 
 	belongs_to :user
-	belongs_to :book, counter_cache: :favorites_count
-
+	belongs_to :book
 end
