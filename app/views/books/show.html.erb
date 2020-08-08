@@ -28,9 +28,38 @@
 						<td><%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
 						<td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
 					<% end %>
+					<!--いいね数コメント数-->
+					<td>
+						<p>コメント数：	<%= @book.book_comments.count %></p>
+					</td>
+					<!---->
 				</tr>
 			</table>
 
+			<!--コメント機能-->
+			<div class="row, comment_index">
+				<table class="table">
+					<h3>コメント一覧</h3>
+					<% @book.book_comments.each do |book_comment| %>
+						<tr>
+							<td>
+								<%= attachment_image_tag book_comment.user, :rofile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+							</td>
+							<td><%= book_comment.user.name %></td>
+							<td><%= book_comment.comment %></td>
+						</tr>
+					<% end %>
+				</table>
+
+			</div>
+			<!---->
+
+			<div class="row, col-xs-12">
+				<%= form_with url: book_book_comments_path(@book.id) do |form| %>
+					<%= form.text_area :comment %>
+					<%= form.submit "送信", method: :post %>
+				<% end %>
+			</div>
 	</div>
 </div>
 
